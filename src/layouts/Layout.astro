@@ -11,79 +11,76 @@ import '../styles/global.css';
 		<meta name="generator" content={Astro.generator} />
 		<title>Justin Gund | Bio</title>
 		<style>
-			:root {
-				--bg-day: url('/images/day-bg.png');
-				--bg-night: url('/images/night-bg.png');
+			/* Background layers for smooth dissolve transition */
+			#bg-container {
+				position: fixed;
+				inset: 0;
+				z-index: -1;
+				overflow: hidden;
 			}
-			body {
+			.bg-layer {
+				position: absolute;
+				inset: 0;
 				background-size: cover;
 				background-position: center;
 				background-attachment: fixed;
-				transition: background-image 0.5s ease;
+				transition: opacity 0.7s ease-in-out;
 			}
-			body.day {
-				background-image: var(--bg-day);
-				color: #0f2e26;
+			.bg-day {
+				background-image: url('/images/day-bg.jpg');
 			}
-			body.night {
-				background-image: var(--bg-night);
-				color: #e0e7ff;
+			.bg-night {
+				background-image: url('/images/night-bg.jpg');
+				opacity: 0;
 			}
-			body.night h1,
-			body.night h2 {
-				color: #ffffff;
+			body.night .bg-night {
+				opacity: 1;
 			}
+			body.night .bg-day {
+				opacity: 0;
+			}
+
 			.card {
-				transition: transform 0.3s ease, box-shadow 0.3s ease;
+				transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+							box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+				box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 
+							0 4px 6px -4px rgb(0 0 0 / 0.1);
 			}
 			.card:hover {
 				transform: translateY(-8px);
-				box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+				box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.15), 
+							0 8px 10px -6px rgb(0 0 0 / 0.15);
 			}
-			/* Hamburger styles */
-			.hamburger {
-				display: none;
-			}
+
+			/* Mobile-first tweaks */
 			@media (max-width: 640px) {
-				.hamburger {
-					display: block;
-				}
-				.nav-links {
-					display: none;
-					position: absolute;
-					top: 100%;
-					right: 0;
-					background: white;
-					width: 100%;
-					padding: 1rem;
-					box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
-				}
-				body.night .nav-links {
-					background: #111;
-				}
-				.nav-links.open {
-					display: flex;
-					flex-direction: column;
-					gap: 1rem;
-				}
+				h1 { font-size: 3.25rem !important; }
 			}
 		</style>
 	</head>
 	<body class="day font-sans">
+		<!-- Background layers for dissolve transition -->
+		<div id="bg-container">
+			<div class="bg-layer bg-day"></div>
+			<div class="bg-layer bg-night"></div>
+		</div>
+
 		<slot />
+
 		<script>
 			function initTheme() {
 				const body = document.body;
 				const toggle = document.getElementById('theme-toggle');
 				const saved = localStorage.getItem('theme') || 'day';
 				body.className = saved;
-				
+
 				if (toggle) {
 					const label = document.getElementById('theme-label');
 					const updateLabel = () => {
 						if (label) label.textContent = body.classList.contains('night') ? 'Switch to Day' : 'Switch to Night';
 					};
 					updateLabel();
+
 					toggle.addEventListener('click', () => {
 						const newTheme = body.classList.contains('day') ? 'night' : 'day';
 						body.className = newTheme;
@@ -93,19 +90,8 @@ import '../styles/global.css';
 				}
 			}
 
-			function initHamburger() {
-				const btn = document.getElementById('hamburger-btn');
-				const links = document.getElementById('nav-links');
-				if (btn && links) {
-					btn.addEventListener('click', () => {
-						links.classList.toggle('open');
-					});
-				}
-			}
-
 			document.addEventListener('DOMContentLoaded', () => {
 				initTheme();
-				initHamburger();
 			});
 		</script>
 	</body>
