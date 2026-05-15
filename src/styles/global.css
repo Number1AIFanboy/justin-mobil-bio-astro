@@ -1,0 +1,84 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --transition: 300ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* Glassmorphism */
+.glass {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+}
+
+[data-theme="day"] .glass {
+  background: rgba(255, 255, 255, 0.75);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+/* Cosmic background */
+.cosmic-bg {
+  background: radial-gradient(ellipse at center, #0a0a1f 0%, #000000 70%);
+  transition: background var(--transition);
+}
+
+[data-theme="day"] .cosmic-bg {
+  background: linear-gradient(to bottom, #87ceeb 0%, #e0f2fe 40%, #fefce8 100%);
+}
+
+/* Animated stars */
+.stars {
+  position: absolute;
+  inset: 0;
+  background: transparent;
+  pointer-events: none;
+}
+
+.star {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: white;
+  border-radius: 50%;
+  animation: twinkle 3s infinite ease-in-out;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+
+/* Project cards */
+.project-card {
+  transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1), 
+              box-shadow 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.project-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+}
+
+[data-theme="day"] .project-card {
+  background: rgba(255,255,255,0.9);
+  color: #111;
+}
+
+/* Buttons */
+.cta-btn {
+  transition: all 0.2s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.cta-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.2);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .hero-content {
+    padding-top: 2rem;
+  }
+}

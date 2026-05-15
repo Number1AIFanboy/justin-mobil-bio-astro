@@ -1,0 +1,30 @@
+---
+---
+
+<div class="absolute inset-0 cosmic-bg overflow-hidden">
+  <!-- Stars layer -->
+  <div id="stars" class="stars"></div>
+  
+  <!-- Subtle nebula glow -->
+  <div class="absolute inset-0 bg-[radial-gradient(#3b82f620_0.5px,transparent_1px)] bg-[length:4px_4px]"></div>
+  
+  <!-- Floating orbs -->
+  <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-[120px]"></div>
+  <div class="absolute bottom-1/3 right-1/4 w-80 h-80 bg-blue-500/10 rounded-full blur-[100px]"></div>
+</div>
+
+<script>
+  // Generate animated stars
+  const container = document.getElementById('stars');
+  if (container) {
+    for (let i = 0; i < 120; i++) {
+      const star = document.createElement('div');
+      star.className = 'star';
+      star.style.left = Math.random() * 100 + '%';
+      star.style.top = Math.random() * 100 + '%';
+      star.style.animationDelay = Math.random() * 4 + 's';
+      star.style.opacity = (Math.random() * 0.7 + 0.3).toString();
+      container.appendChild(star);
+    }
+  }
+</script>

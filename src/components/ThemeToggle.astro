@@ -1,0 +1,44 @@
+---
+---
+
+<button
+  id="theme-toggle"
+  class="fixed top-6 right-6 z-50 glass px-4 py-2 rounded-full flex items-center gap-2 text-sm font-medium hover:bg-white/10 transition-all"
+  aria-label="Toggle day/night mode"
+>
+  <span id="theme-icon">🌙</span>
+  <span id="theme-label">Night</span>
+</button>
+
+<script>
+  const toggle = document.getElementById('theme-toggle') as HTMLButtonElement;
+  const icon = document.getElementById('theme-icon')!;
+  const label = document.getElementById('theme-label')!;
+  const html = document.documentElement;
+
+  function applyTheme(theme: string) {
+    html.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+    
+    if (theme === 'day') {
+      icon.textContent = '☀️';
+      label.textContent = 'Day';
+      document.body.classList.add('day-mode');
+    } else {
+      icon.textContent = '🌙';
+      label.textContent = 'Night';
+      document.body.classList.remove('day-mode');
+    }
+  }
+
+  // Initial theme
+  const saved = localStorage.getItem('theme');
+  const prefersDay = window.matchMedia('(prefers-color-scheme: light)').matches;
+  const initial = saved || (prefersDay ? 'day' : 'night');
+  applyTheme(initial);
+
+  toggle.addEventListener('click', () => {
+    const current = html.getAttribute('data-theme');
+    applyTheme(current === 'day' ? 'night' : 'day');
+  });
+</script>
