@@ -1,23 +1,112 @@
+---
+import '../styles/global.css';
+---
+
 <!doctype html>
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
+		<title>Justin Gund | Bio</title>
+		<style>
+			:root {
+				--bg-day: url('/images/day-bg.png');
+				--bg-night: url('/images/night-bg.png');
+			}
+			body {
+				background-size: cover;
+				background-position: center;
+				background-attachment: fixed;
+				transition: background-image 0.5s ease;
+			}
+			body.day {
+				background-image: var(--bg-day);
+				color: #0f2e26;
+			}
+			body.night {
+				background-image: var(--bg-night);
+				color: #e0e7ff;
+			}
+			body.night h1,
+			body.night h2 {
+				color: #ffffff;
+			}
+			.card {
+				transition: transform 0.3s ease, box-shadow 0.3s ease;
+			}
+			.card:hover {
+				transform: translateY(-8px);
+				box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+			}
+			/* Hamburger styles */
+			.hamburger {
+				display: none;
+			}
+			@media (max-width: 640px) {
+				.hamburger {
+					display: block;
+				}
+				.nav-links {
+					display: none;
+					position: absolute;
+					top: 100%;
+					right: 0;
+					background: white;
+					width: 100%;
+					padding: 1rem;
+					box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+				}
+				body.night .nav-links {
+					background: #111;
+				}
+				.nav-links.open {
+					display: flex;
+					flex-direction: column;
+					gap: 1rem;
+				}
+			}
+		</style>
 	</head>
-	<body>
+	<body class="day font-sans">
 		<slot />
+		<script>
+			function initTheme() {
+				const body = document.body;
+				const toggle = document.getElementById('theme-toggle');
+				const saved = localStorage.getItem('theme') || 'day';
+				body.className = saved;
+				
+				if (toggle) {
+					const label = document.getElementById('theme-label');
+					const updateLabel = () => {
+						if (label) label.textContent = body.classList.contains('night') ? 'Switch to Day' : 'Switch to Night';
+					};
+					updateLabel();
+					toggle.addEventListener('click', () => {
+						const newTheme = body.classList.contains('day') ? 'night' : 'day';
+						body.className = newTheme;
+						localStorage.setItem('theme', newTheme);
+						updateLabel();
+					});
+				}
+			}
+
+			function initHamburger() {
+				const btn = document.getElementById('hamburger-btn');
+				const links = document.getElementById('nav-links');
+				if (btn && links) {
+					btn.addEventListener('click', () => {
+						links.classList.toggle('open');
+					});
+				}
+			}
+
+			document.addEventListener('DOMContentLoaded', () => {
+				initTheme();
+				initHamburger();
+			});
+		</script>
 	</body>
 </html>
-
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
-</style>

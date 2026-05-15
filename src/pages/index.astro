@@ -1,11 +1,95 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
 ---
 
 <Layout>
-	<Welcome />
+	<!-- Hero -->
+	<header class="max-w-4xl mx-auto px-6 pt-16 pb-12 text-center">
+		<div class="inline-block px-4 py-1 rounded-full bg-black/90 text-white text-sm mb-6">Mobile Engineer • Tennessee</div>
+		
+		<h1 class="text-6xl md:text-7xl font-bold tracking-tighter mb-4 text-white">
+			Justin Gund
+		</h1>
+		<p class="text-2xl text-white/95 max-w-md mx-auto mb-8">
+			Building beautiful, reactive mobile experiences from the hills of Northwest Tennessee.
+		</p>
+
+		<button 
+			id="theme-toggle"
+			class="px-8 py-3 rounded-3xl bg-black/90 text-white font-medium flex items-center gap-2 mx-auto hover:bg-black transition active:scale-[0.985]">
+			<span id="theme-label">Switch to Night</span>
+		</button>
+	</header>
+
+	<!-- About -->
+	<section id="about" class="max-w-4xl mx-auto px-6 py-12">
+		<div class="rounded-3xl bg-white/90 dark:bg-zinc-900/85 p-8 md:p-12 shadow-xl shadow-black/10 dark:shadow-black/40 text-zinc-900 dark:text-white transition-all hover:-translate-y-1 hover:shadow-2xl hover:shadow-black/20 dark:hover:shadow-black/60">
+			<h2 class="text-4xl font-semibold tracking-tight mb-6">About Me</h2>
+			<div class="prose prose-lg max-w-none text-[15px] leading-relaxed">
+				<p>Hey, I'm Justin Gund. Solo developer and founder based in Northwest Tennessee near Nashville, Tennessee. I build delightful, reactive mobile experiences with a focus on privacy-first identity and verification systems.</p>
+				<p class="mt-4">My sites include Level3ID.com, AnthroShield.com, and BuiltByGrock.com — creating secure, user-friendly mobile solutions that feel natural in the real world. When I'm not coding, you'll find me exploring the countryside or stargazing on clear Tennessee nights.</p>
+			</div>
+		</div>
+	</section>
+
+	<!-- Work Showcase -->
+	<section id="work" class="max-w-4xl mx-auto px-6 pb-16">
+		<div class="mb-8 px-1">
+			<h2 class="text-4xl font-semibold tracking-tight text-white dark:text-white">Featured Work</h2>
+			<p class="text-lg opacity-80 mt-1">Some projects I'm proud of</p>
+		</div>
+
+		<div class="grid grid-cols-1 gap-6">
+			<div class="bg-white/85 dark:bg-zinc-900/85 rounded-3xl p-8 shadow-xl shadow-black/10 dark:shadow-black/40 border border-white/40 dark:border-white/10 text-zinc-900 dark:text-white transition-all hover:-translate-y-1 hover:shadow-2xl hover:shadow-black/20 dark:hover:shadow-black/60">
+				<div class="flex justify-between items-start mb-4">
+					<div>
+						<div class="font-semibold text-xl">AnthroShield</div>
+						<div class="text-sm opacity-60">2024 • iOS &amp; Android</div>
+					</div>
+					<div class="text-xs px-3 py-1 rounded-full bg-white/70 text-zinc-800">Featured</div>
+				</div>
+				<p class="leading-snug">Privacy-first mobile identity platform. Secure biometric verification and real-time threat detection for users across the US.</p>
+				<a href="https://anthorshield.com" class="inline-block mt-4 text-sm underline">anthorshield.com →</a>
+			</div>
+
+			<div class="bg-white/85 dark:bg-zinc-900/85 rounded-3xl p-8 shadow-xl shadow-black/10 dark:shadow-black/40 border border-white/40 dark:border-white/10 text-zinc-900 dark:text-white transition-all hover:-translate-y-1 hover:shadow-2xl hover:shadow-black/20 dark:hover:shadow-black/60">
+				<div class="flex justify-between items-start mb-4">
+					<div>
+						<div class="font-semibold text-xl">Level 3 ID</div>
+						<div class="text-sm opacity-60">2022 • Flutter</div>
+					</div>
+				</div>
+				<p class="leading-snug">Next-generation mobile ID platform. Secure document scanning, live verification, and elegant onboarding flows optimized for mobile.</p>
+				<a href="https://level3id.com" class="inline-block mt-4 text-sm underline">level3id.com →</a>
+			</div>
+
+			<div class="bg-white/85 dark:bg-zinc-900/85 rounded-3xl p-8 shadow-xl shadow-black/10 dark:shadow-black/40 border border-white/40 dark:border-white/10 text-zinc-900 dark:text-white transition-all hover:-translate-y-1 hover:shadow-2xl hover:shadow-black/20 dark:hover:shadow-black/60">
+				<div class="flex justify-between items-start mb-4">
+					<div>
+						<div class="font-semibold text-xl">Built by Grock</div>
+						<div class="text-sm opacity-60">2024 • Astro &amp; React</div>
+					</div>
+				</div>
+				<p class="leading-snug">Personal creative studio and portfolio for reactive web experiences, tools, and mobile-first experiments.</p>
+				<a href="https://builtbygrock.com" class="inline-block mt-4 text-sm underline">builtbygrock.com →</a>
+			</div>
+		</div>
+	</section>
+
+	<!-- Contact -->
+	<section id="contact" class="max-w-4xl mx-auto px-6 pb-20">
+		<div class="rounded-3xl bg-white/85 dark:bg-zinc-900/85 p-10 text-center text-zinc-900 dark:text-white shadow-xl shadow-black/10 dark:shadow-black/40 transition-all hover:-translate-y-1 hover:shadow-2xl hover:shadow-black/20 dark:hover:shadow-black/60">
+			<h2 class="text-3xl font-semibold mb-3">Let's Connect</h2>
+			<p class="mb-8 max-w-xs mx-auto">Always open to interesting projects and conversations from fellow builders.</p>
+			
+			<div class="flex flex-col sm:flex-row gap-3 justify-center">
+				<a href="mailto:justin@justingund.dev" class="px-8 py-4 rounded-3xl bg-black text-white hover:bg-zinc-900 transition">Email Me</a>
+				<a href="https://twitter.com" class="px-8 py-4 rounded-3xl border border-black/20 hover:bg-white/50 transition">Twitter</a>
+			</div>
+		</div>
+	</section>
+
+	<footer class="text-center py-8 text-sm opacity-60">
+		© {new Date().getFullYear()} Justin Gund • Nashville, TN
+	</footer>
 </Layout>
